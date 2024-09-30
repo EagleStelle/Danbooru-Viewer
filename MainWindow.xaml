@@ -1,0 +1,106 @@
+<Window x:Class="Danbooru_Viewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Danbooru Image Viewer">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="TagInput" 
+                 Grid.Row="0"
+                 PlaceholderText="Enter tags..." 
+                 Width="400" Margin="10" 
+                 HorizontalAlignment="Center"
+                 KeyDown="TagInput_KeyDown"/>
+
+        <GridView x:Name="ImageGridView" 
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Width="Auto"
+                  Margin="10"
+                  SelectionMode="Single"
+                  SelectionChanged="ImageGridView_SelectionChanged"
+                  RightTapped="ImageGridView_RightTapped">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="150" Height="150" Margin="5">
+                        <Image Source="{Binding}" Stretch="UniformToFill" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <!-- Enlarged Image Display -->
+        <Grid x:Name="EnlargedImageGrid" Grid.Row="1" Visibility="Collapsed">
+            <Image x:Name="EnlargedImage" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Stretch="Uniform" />
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Center" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- First StackPanel (Save Selected and Back to Gallery) -->
+            <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="SaveColumn" Width="*" />
+                    <ColumnDefinition x:Name="BackColumn" Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Save Selected Button -->
+                <Button Content="Save Selected" 
+                        Click="SaveSelectedClick" 
+                        HorizontalAlignment="Stretch" 
+                        Margin="5"
+                        Grid.Column="0" />
+
+                <!-- Back to Gallery Button -->
+                <Button x:Name="BackButton"
+                        Content="Back to Gallery" 
+                        HorizontalAlignment="Stretch" 
+                        Margin="5" 
+                        Grid.Column="1"
+                        Visibility="Collapsed"
+                        Click="BackToGallery_Click"/>
+            </Grid>
+
+            <!-- Second StackPanel (TextBlock, ComboBox, and Navigation Buttons) -->
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Stretch">
+                <TextBlock x:Name="SelectedCountTextBlock" 
+                   Visibility="Collapsed" 
+                   VerticalAlignment="Center" 
+                   Margin="5"/>
+                <ComboBox x:Name="ImagesPerPageComboBox" 
+                  SelectedIndex="1"
+                  Width="100" 
+                  VerticalAlignment="Center" 
+                  SelectionChanged="ImagesPerPageComboBox_SelectionChanged"
+                  Margin="5">
+                    <ComboBoxItem Content="10" />
+                    <ComboBoxItem Content="20" />
+                    <ComboBoxItem Content="30" />
+                    <ComboBoxItem Content="40" />
+                    <ComboBoxItem Content="50" />
+                    <ComboBoxItem Content="60" />
+                    <ComboBoxItem Content="70" />
+                    <ComboBoxItem Content="80" />
+                    <ComboBoxItem Content="90" />
+                    <ComboBoxItem Content="100" />
+                </ComboBox>
+
+                <Button Content="Previous" Click="OnPreviousClick" Width="100" Margin="5"/>
+                <Button Content="Next" Click="OnNextClick" Width="100" Margin="5"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

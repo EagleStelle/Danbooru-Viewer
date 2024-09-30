@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Danbooru Viewer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Danbooru Viewer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
